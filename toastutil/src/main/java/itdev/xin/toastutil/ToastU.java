@@ -35,6 +35,15 @@ public class ToastU {
     private static int WARNING_COLOR = Color.parseColor("#FFA900");             //警告提示默认背景颜色
     @ColorInt
     private static int NORMAL_COLOR = Color.parseColor("#353A3E");              //标准背景颜色
+    @DrawableRes
+    private static int ERROR_ICON =  R.drawable.ic_clear_white_48dp;            //默认失败图片
+    @DrawableRes
+    private static int WARNING_ICON =  R.drawable.ic_warning_outline_white;     //默认警告图片
+    @DrawableRes
+    private static int INFO_ICON =  R.drawable.ic_error_outline_white_48dp;     //默认提示图片
+    @DrawableRes
+    private static int SUCCESS_ICON =  R.drawable.ic_check_white_48dp;          //默认成功图片
+
 
     //默认常规toast样式
     private static final Typeface LOADED_TOAST_TYPEFACE = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
@@ -116,7 +125,8 @@ public class ToastU {
     }
 
     /**
-     * 警告纯文本toast
+     * 警告toast
+     * 默认时长
      * @param mContext
      * @param message
      * @return
@@ -127,7 +137,8 @@ public class ToastU {
     }
 
     /**
-     * 警告纯文本
+     * 警告
+     * 设置时长
      * @param mContext
      * @param message
      * @param duration
@@ -138,56 +149,128 @@ public class ToastU {
         return warning(mContext, message, duration, true);
     }
 
+    /**
+     * 警告
+     * @param mContext
+     * @param message
+     * @param duration
+     * @param withIcon
+     * @return
+     */
+    @CheckResult
     public static Toast warning(@NonNull Context mContext, @NonNull CharSequence message, int duration, boolean withIcon) {
-        return custom(mContext, message, ToastUUtils.getDrawable(mContext, R.drawable.ic_error_outline_white_48dp),
+        return custom(mContext, message, ToastUUtils.getDrawable(mContext, WARNING_ICON),
                 WARNING_COLOR, duration, withIcon, true);
     }
 
+    /**
+     * 提醒,默认时长
+     * @param context
+     * @param message
+     * @return
+     */
     @CheckResult
     public static Toast info(@NonNull Context context, @NonNull CharSequence message) {
         return info(context, message, Toast.LENGTH_SHORT, true);
     }
 
+    /**
+     * 提醒,可设置时长
+     * @param context
+     * @param message
+     * @param duration
+     * @return
+     */
     @CheckResult
     public static Toast info(@NonNull Context context, @NonNull CharSequence message, int duration) {
         return info(context, message, duration, true);
     }
 
+    /**
+     * 提醒
+     * @param context
+     * @param message
+     * @param duration
+     * @param withIcon
+     * @return
+     */
     @CheckResult
     public static Toast info(@NonNull Context context, @NonNull CharSequence message, int duration, boolean withIcon) {
-        return custom(context, message, ToastUUtils.getDrawable(context, R.drawable.ic_info_outline_white_48dp),
+        return custom(context, message, ToastUUtils.getDrawable(context, INFO_ICON),
                 INFO_COLOR, duration, withIcon, true);
     }
 
+    /**
+     * 成功,默认时长
+     * @param context
+     * @param message
+     * @return
+     */
     @CheckResult
     public static Toast success(@NonNull Context context, @NonNull CharSequence message) {
         return success(context, message, Toast.LENGTH_SHORT, true);
     }
 
+    /**
+     * 成功,可设置时长
+     * @param context
+     * @param message
+     * @param duration
+     * @return
+     */
     @CheckResult
     public static Toast success(@NonNull Context context, @NonNull CharSequence message, int duration) {
         return success(context, message, duration, true);
     }
 
+    /**
+     * 成功
+     * @param context
+     * @param message
+     * @param duration
+     * @param withIcon
+     * @return
+     */
     @CheckResult
     public static Toast success(@NonNull Context context, @NonNull CharSequence message, int duration, boolean withIcon) {
-        return custom(context, message, ToastUUtils.getDrawable(context, R.drawable.ic_check_white_48dp),
+        return custom(context, message, ToastUUtils.getDrawable(context, SUCCESS_ICON),
                 SUCCESS_COLOR, duration, withIcon, true);
     }
 
+    /**
+     * 失败,默认时长
+     * @param context
+     * @param message
+     * @return
+     */
     @CheckResult
     public static Toast error(@NonNull Context context, @NonNull CharSequence message) {
         return error(context, message, Toast.LENGTH_SHORT, true);
     }
 
+    /**
+     * 失败,可设置时长
+     * @param context
+     * @param message
+     * @param duration
+     * @return
+     */
     @CheckResult
     public static Toast error(@NonNull Context context, @NonNull CharSequence message, int duration) {
         return error(context, message, duration, true);
     }
 
+    /**
+     * 失败
+     * @param context
+     * @param message
+     * @param duration
+     * @param withIcon
+     * @return
+     */
     @CheckResult
     public static Toast error(@NonNull Context context, @NonNull CharSequence message, int duration, boolean withIcon) {
-        return custom(context, message, ToastUUtils.getDrawable(context, R.drawable.ic_clear_white_48dp),
+        return custom(context, message, ToastUUtils.getDrawable(context, ERROR_ICON),
                 ERROR_COLOR, duration, withIcon, true);
     }
 
@@ -259,6 +342,15 @@ public class ToastU {
 
         private boolean tintIcon = ToastU.tintIcon;
 
+        @DrawableRes
+        private static int ERROR_ICON =  ToastU.ERROR_ICON;
+        @DrawableRes
+        private static int WARNING_ICON =  ToastU.WARNING_ICON;
+        @DrawableRes
+        private static int INFO_ICON =  ToastU.INFO_ICON;
+        @DrawableRes
+        private static int SUCCESS_ICON =  ToastU.SUCCESS_ICON;
+
         private Config() {
             // avoiding instantiation
         }
@@ -277,6 +369,32 @@ public class ToastU {
             ToastU.currentTypeface = LOADED_TOAST_TYPEFACE;
             ToastU.textSize = 16;
             ToastU.tintIcon = true;
+            ToastU.ERROR_ICON =  R.drawable.ic_clear_white_48dp;
+            ToastU.WARNING_ICON =  R.drawable.ic_warning_outline_white;
+            ToastU.INFO_ICON =  R.drawable.ic_error_outline_white_48dp;
+            ToastU.SUCCESS_ICON =  R.drawable.ic_check_white_48dp;
+
+        }
+
+        @CheckResult
+        public Config setErrorIcon(@DrawableRes int res){
+            ERROR_ICON = res;
+            return this;
+        }
+        @CheckResult
+        public Config setWarningIcon(@DrawableRes int res){
+            WARNING_ICON  = res;
+            return this;
+        }
+        @CheckResult
+        public Config setInfoIcon(@DrawableRes int res){
+            INFO_ICON = res;
+            return this;
+        }
+        @CheckResult
+        public Config setSuccessIcon(@DrawableRes int res){
+            SUCCESS_ICON = res;
+            return this;
         }
 
         @CheckResult
@@ -336,6 +454,10 @@ public class ToastU {
             ToastU.currentTypeface = typeface;
             ToastU.textSize = textSize;
             ToastU.tintIcon = tintIcon;
+            ToastU.WARNING_ICON = WARNING_ICON;
+            ToastU.INFO_ICON = INFO_ICON;
+            ToastU.SUCCESS_ICON = SUCCESS_ICON;
+            ToastU.ERROR_ICON = ERROR_ICON;
         }
     }
 }
